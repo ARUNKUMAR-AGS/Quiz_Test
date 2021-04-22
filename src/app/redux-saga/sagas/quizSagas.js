@@ -1,29 +1,30 @@
 import { all, fork, race, call, put, takeLatest } from 'redux-saga/effects';
-import * as Initial from '../modules/initial';
-import { getCallReq } from '../../utils/initial';
+import * as Quiz from '../modules/quiz';
+import { getCallReq } from '../../utils/Quiz';
 
-export function* firstSaga(action) {
+export function* quizSaga(action) {
   const params = action.payload;
   try {
     const { response } = yield race({
       response: call(getCallReq, params),
     });
     if (response) {
+      console.log(response,"response//")
       yield put(
-        Initial.actions.firstCallSuccess({
+        Quiz.actions.getQuizSuccess({
           data: response,
         }),
       );
     } else {
-      yield put(Initial.actions.firstCallFailure({ message: 'Fetch failure' }));
+      yield put(Quiz.actions.getQuizFailure({ message: 'Fetch failure' }));
     }
   } catch (err) {
-    yield put(Initial.actions.firstCallFailure({ message: 'Fetch failure' }));
+    yield put(Quiz.actions.getQuizFailure({ message: 'Fetch failure' }));
   }
 }
 
 export function* watchFirstReq() {
-  yield takeLatest(Initial.constants.FIRST_CALL, firstSaga);
+  yield takeLatest(Quiz.constants.GET_QUIZ, quizSaga);
 }
 
 export default function* root() {

@@ -31,7 +31,7 @@ const Question = ({ data, onAnswerUpdate, numberOfQuestions, activeQuestion, onS
       onSetStep(3);
     }
   }
-
+// console.log(data,"Data///")
   return(
     <div className="card">
       <div className="card-content">
@@ -40,8 +40,8 @@ const Question = ({ data, onAnswerUpdate, numberOfQuestions, activeQuestion, onS
           <div className="control" ref={radiosWrapper}>
             {data.choices.map((choice, i) => (
               <label className="radio has-background-light" key={i}>
-                <input type="radio" name="answer" value={choice} onChange={changeHandler} />
-                {choice}
+                <input type="radio" name="answer" value={choice || data.correct_answer} onChange={changeHandler} />
+                {choice} 
               </label>
             ))}
           </div>

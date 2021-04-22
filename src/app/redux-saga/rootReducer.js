@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import { initialReducer as initial } from './modules/initial';
+import { quizReducer as quiz } from './modules/quiz';
 
 export default combineReducers({
-  initial
+  quiz
 });
